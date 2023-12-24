@@ -1,0 +1,46 @@
+﻿<Page x:Class="CarDealership.Views.DealerInfoView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CarDealership.Views"
+      xmlns:util="clr-namespace:CarDealership.Util"
+      mc:Ignorable="d" 
+      x:Name="dealerPage"
+      FontSize="16"
+      FontFamily="Cornerita"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="DealerInfoView" >
+    <Page.Resources>
+        <util:SizeConverter x:Key="sizeConverter" ></util:SizeConverter>
+
+    </Page.Resources>
+    <ScrollViewer CanContentScroll="False">
+        <StackPanel Orientation="Vertical">
+            <Label FontSize="25" HorizontalAlignment="Center" Margin="15 5 15 10">О нас</Label>
+            <Image Source="/Images/Dealership.jpeg" Width="{Binding ElementName=dealerPage,Path=ActualWidth,
+                ConverterParameter='0,7', Converter={StaticResource sizeConverter}}"></Image>
+            <StackPanel>
+                
+            </StackPanel>
+            <Label Margin=" 0 30 0 30" HorizontalAlignment="Center" FontSize="19"
+                   Content="{Binding Dealership.CompanyName}" ContentStringFormat="Салон поддержанных автомобилей {0} ожидает новых покупателей!"></Label>
+            <TextBlock Margin="50 0 30 0" TextWrapping="Wrap" HorizontalAlignment="Stretch" >
+                    -  Все автомобили, представленные в нашем ассортименте прошли комплексную диагностику и готовы радовать 
+                    своего покупателя, в условиях ежедневной эксплуатации.<LineBreak /><LineBreak />
+                    - Наши менеджеры всегда готовы проконсультировать Вас по любому автомобилю.<LineBreak /><LineBreak />
+                    - С момента создания в 2023 году наша компания постоянно находится в развитии, расширяется спектр услуг.<LineBreak /><LineBreak />
+            </TextBlock>
+            <TextBlock Margin="50 0 0 10" Text="{Binding Dealership.Address, StringFormat=Наш адрес: {0}}"></TextBlock>
+            <TextBlock Margin="50 0 0 10" Text="{Binding Dealership.Email, StringFormat=E-mail: {0}}"></TextBlock>
+            <TextBlock Margin="50 0 0 10" Text="{Binding Dealership.TelephoneNumber, StringFormat=Контактный номер телефона: +{0}}"></TextBlock>
+            <Label Margin=" 0 10 0 20" HorizontalAlignment="Center" FontSize="19" Content="О программе" ></Label>
+            <TextBlock  Margin="50 0 0 10" Text="Название : Автосалон б/у автомобилей"></TextBlock>
+            <TextBlock  Margin="50 0 0 10" Text="Версия : 1.0.0"></TextBlock>
+            <TextBlock  Margin="50 0 0 10" Text="Автор : Кандрушин П.А."></TextBlock>
+        </StackPanel>
+
+
+    </ScrollViewer>
+
+</Page>
