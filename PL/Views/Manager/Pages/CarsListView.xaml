@@ -97,7 +97,7 @@
                         Grid.Column="0" Grid.Row="0">
                             <UniformGrid Columns="2">
                                 <Label Margin="7" VerticalAlignment="Center">Марка:</Label>
-                                <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding Brands}" SelectedValue="{Binding SelectedCar.BrandId}" SelectedValuePath="Id">
+                                <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding Brands}" SelectedValue="{Binding SelectedBrandId}" SelectedValuePath="Id">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <Label Content="{Binding Name}"></Label>
@@ -116,8 +116,9 @@
                             <UniformGrid Columns="2">
                                 <Label Margin="7" VerticalAlignment="Center">Модель:</Label>
                                 <ComboBox  HorizontalAlignment="Stretch" ItemsSource="{Binding Models}" 
-                           SelectedValue="{Binding SelectedCar.ModelId}" 
+                           SelectedValue="{Binding SelectedModelId,Mode=TwoWay}" 
                            SelectedValuePath="Id">
+                                    
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <Label Content="{Binding Name}"></Label>

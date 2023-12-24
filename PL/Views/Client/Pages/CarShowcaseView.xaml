@@ -49,11 +49,7 @@
             <Label  VerticalAlignment="Center" FontSize="13">Сортировать по:</Label>
             <ComboBox x:Name="sortingBox" VerticalAlignment="Center"  FontSize="13" Width="200" Margin="5" ItemsSource="{Binding SortingParameters}"
                        SelectedIndex="{Binding SelectedSortingParameterIndex}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <Label Margin="0" Padding="0" Content="{Binding ElementName=sortingBox, Path=SelectedItem}"></Label>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
+                
             </ComboBox>
 
         </StackPanel>

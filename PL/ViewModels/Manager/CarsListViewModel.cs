@@ -3,6 +3,7 @@ using Application.Interfaces.Service;
 using CarDealership.Util;
 using Microsoft.Win32;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 
@@ -20,12 +21,13 @@ namespace CarDealership.ViewModels
 
         #region Private property fields
 
+        long _selectedBrandId;
+        long _selectedModelId;
         bool _isDialogOpen;
         string _messageBoxText;
         bool _isMessageBoxOpen;
         CarDTO _selectedCar;
         List<CarShortDTO> _cars;
-        List<ModelDTO> _models = new List<ModelDTO>();
         List<ConfigurationOptionDTO> _configurationOptions;
 
 
@@ -35,7 +37,6 @@ namespace CarDealership.ViewModels
 
         public RelayCommand OpenAddDialogCommand { get; private set; }
         public RelayCommand OpenEditDialogCommand { get; private set; }
-        public RelayCommand UpdateModelsCommand { get; private set; }
         public RelayCommand DeleteCommand { get; private set; }
         public RelayCommand SaveCommand { get; private set; }
         public RelayCommand AddPhotoCommand { get; private set; }
@@ -62,11 +63,38 @@ namespace CarDealership.ViewModels
 
         #endregion
 
+
+        #region Models and brands working
+        public ObservableCollection<ModelDTO> Models { get; set; }
+
+        public long SelectedBrandId
+        {
+            get => _selectedBrandId;
+            set
+            {
+                _selectedBrandId = value;
+                OnPropertyChanged();
+                SelectedModelId = 0;
+                Models.Clear();
+                try
+                {
+                    if (value != 0) { Models.AddRange(modelService.GetModelsByBrand(value)); }
+                }
+                catch
+                {
+                    MessageBoxText = "Возникла ошибка при обращении к БД";
+                    IsMessageBoxOpen = true;
+                }
+            }
+        }
+        public long SelectedModelId { get => _selectedModelId; set { _selectedModelId = value; OnPropertyChanged(); } }
+
+        #endregion
+
         bool CurrentDialogAction;
-        bool SaveModelFlag;
+        
 
         public CarDTO SelectedCar { get => _selectedCar; set { _selectedCar = value; OnPropertyChanged(); } }
-        public List<ModelDTO> Models { get => _models; set { _models = value; OnPropertyChanged(); } }
         public List<CarShortDTO> Cars 
         {
             get => _cars;
@@ -93,7 +121,6 @@ namespace CarDealership.ViewModels
             this.carService = carService;
             OpenAddDialogCommand = new RelayCommand(OpenAddDialog);
             OpenEditDialogCommand = new RelayCommand(OpenEditDialog);
-            UpdateModelsCommand = new RelayCommand(UpdateModels);
             SaveCommand = new RelayCommand(Save,CheckDialogForm);
             AddPhotoCommand = new RelayCommand(AddPhoto);
             CloseMessageBoxCommand = new RelayCommand((object e) => IsMessageBoxOpen = false);
@@ -102,6 +129,7 @@ namespace CarDealership.ViewModels
                                                                      else 
                                                                         return SelectedCar.Id != 0;
                                                                     });
+            Models = new ObservableCollection<ModelDTO>();
             try
             {
                 LoadStaticData();
@@ -118,6 +146,7 @@ namespace CarDealership.ViewModels
                 DriveTypes = new List<string>();
                 ConfigurationOptions = new List<ConfigurationOptionDTO>();
                 Cars = new List<CarShortDTO>();
+                
             }
             
             
@@ -143,34 +172,13 @@ namespace CarDealership.ViewModels
             DriveTypes = enumService.DriveTypes;
             ConfigurationOptions = carService.GetConfigurationOptions();
         }
-        void UpdateModels(object e = null)
-        {
-            try
-            {
-                if ( SelectedCar.BrandId != 0)
-                {
-                    Models = modelService.GetModelsByBrand(SelectedCar.BrandId);
-                    if (!SaveModelFlag) { SelectedCar.ModelId = 0; }
-                    else { SaveModelFlag = false; }
-                }
-                else
-                {
-                    Models.Clear();
-                    SelectedCar.ModelId = 0;
-                }
-            }
-            catch
-            {
-                MessageBoxText = "Возникла ошибка при обращении к БД";
-                IsMessageBoxOpen = true;
-            }
-
-        }
+        
         private void OpenAddDialog(object e)
         {
             CurrentDialogAction = false;
             SelectedCar = new CarDTO();
-            ConfigurationOptions = ConfigurationOptions?.Select(a => { a.IsSelected = false; return a; }).ToList();
+            SelectedBrandId = 0;
+            ConfigurationOptions = ConfigurationOptions.Select(a => { a.IsSelected = false; return a; }).ToList();
             IsDialogOpen = true;
         }
         void OpenEditDialog(object e)
@@ -179,19 +187,21 @@ namespace CarDealership.ViewModels
             try
             {
                 CurrentDialogAction = true;
-                SaveModelFlag = true;
                 SelectedCar = carService.GetOneCar(id);
-                ConfigurationOptions = ConfigurationOptions.Select(a => { a.IsSelected = false; return a; }).ToList();
-                foreach (ConfigurationOptionDTO option in ConfigurationOptions)
-                {
-                    if (SelectedCar.ConfigurationOptions.Contains(option.Id)) { option.IsSelected = true; }
-                }
+                SelectedBrandId = SelectedCar.BrandId;
+                SelectedModelId = SelectedCar.ModelId;
+                ConfigurationOptions = ConfigurationOptions.Select(a => {
+                                                             a.IsSelected = SelectedCar.ConfigurationOptions.Contains(a.Id); 
+                                                             return a; 
+                                                            })
+                                                            .ToList();
                 IsDialogOpen = true;
             }
             catch
             {
                 MessageBoxText = "Возникла ошибка при обращении к БД";
                 IsMessageBoxOpen = true;
+                SelectedCar = new CarDTO();
             }
             
         }
@@ -218,7 +228,8 @@ namespace CarDealership.ViewModels
         }
         void Save(object e)
         {
-            switch(CurrentDialogAction)
+            SelectedCar.ModelId = SelectedModelId;
+            switch (CurrentDialogAction)
             {
                 case false:
                     AddCar();
@@ -296,7 +307,7 @@ namespace CarDealership.ViewModels
             if (string.IsNullOrWhiteSpace(SelectedCar.Pts) || string.IsNullOrWhiteSpace(SelectedCar.Sts) || string.IsNullOrWhiteSpace(SelectedCar.RegistrationNumber) || string.IsNullOrWhiteSpace(SelectedCar.EngineNumber) 
                 || string.IsNullOrWhiteSpace(SelectedCar.ImagePath) || string.IsNullOrWhiteSpace(SelectedCar.Vin) 
                 || string.IsNullOrWhiteSpace(SelectedCar.Color) || SelectedCar.NumberOfOwners <= 0 || SelectedCar.Price <= 0 || SelectedCar.YearOfRelease < 1800 ||
-                   SelectedCar.EnginePower <= 0 || SelectedCar.EngineSize <= 0 || SelectedCar.Mileage <= 0 || SelectedCar.BrandId == 0 || SelectedCar.ModelId == 0
+                   SelectedCar.EnginePower <= 0 || SelectedCar.EngineSize <= 0 || SelectedCar.Mileage <= 0 || SelectedModelId == 0 
                 || string.IsNullOrWhiteSpace(SelectedCar.BodyNumber))
             {
                 return false;

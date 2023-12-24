@@ -58,7 +58,7 @@ namespace CarDealership.ViewModels.Manager
         #endregion
 
         #region Models and brands working
-        public List<BrandDTO> Brands { get; set; }
+        public ObservableCollection<BrandDTO> Brands { get; set; }
         public ObservableCollection<ModelDTO > Models { get; set; }
         public ObservableCollection<CarShortDTO> Cars {  get; set; }
         
@@ -170,16 +170,21 @@ namespace CarDealership.ViewModels.Manager
             GenerateDocumentCommand = new RelayCommand(GenerateDocument);
             CloseMessageBoxCommand = new RelayCommand((object e) => IsMessageBoxOpen = false);
             OpenCreateDialogCommand = new RelayCommand(OpenCreateDialog);
+            Products = new ObservableCollection<AccessoryDTO>();
+            Models = new ObservableCollection<ModelDTO>();
+            Cars = new ObservableCollection<CarShortDTO>();
+            Deals = new ObservableCollection<DealShortDTO>();
+            Brands = new ObservableCollection<BrandDTO>();
+            accessories = new List<AccessoryDTO>();
             try
             {
-                LoadStaticData();
+                Brands.AddRange(modelService.GetAllBrands());
                 LoadData();
             }
             catch
             {
                 MessageBoxText = "Возникла ошибка при обращении к БД";
                 IsMessageBoxOpen = true;
-                Brands = new List<BrandDTO>();
                 accessories = new List<AccessoryDTO>();
             }
             
@@ -199,15 +204,6 @@ namespace CarDealership.ViewModels.Manager
                 IsMessageBoxOpen = true;
             }
             
-        }
-        private void LoadStaticData()
-        {
-            Products = new ObservableCollection<AccessoryDTO>();
-            Models = new ObservableCollection<ModelDTO>();
-            Cars = new ObservableCollection<CarShortDTO>();
-            Deals = new ObservableCollection<DealShortDTO>();
-            Brands = modelService.GetAllBrands();
-
         }
         private void CreateDeal(object e)
         {
@@ -253,8 +249,8 @@ namespace CarDealership.ViewModels.Manager
         private void OpenCreateDialog(object e)
         {
             SelectedDeal = new DealDTO();
-            SelectedDeal.AccessoriesFromCart = accessories;
             accessories = accessories.Select(a => { a.IsSelected = false; return a; }).ToList();
+            SelectedDeal.AccessoriesFromCart = accessories;
             SelectedDeal.Accessories = new List<int>();
             SelectedBrandId = 0;
             IsCreateDialogOpen = true;
@@ -276,6 +272,7 @@ namespace CarDealership.ViewModels.Manager
             {
                 MessageBoxText = "Возникла ошибка при обращении к БД";
                 IsMessageBoxOpen = true;
+                SelectedDeal = new DealDTO();
             }
                  
             

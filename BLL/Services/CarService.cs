@@ -137,7 +137,14 @@ namespace BLL.Services
             { 
                 
                 string imgPath = Path.Combine(Environment.CurrentDirectory, carToEdit.ImagePath, "1.jpg");
-                if (car.ImagePath != imgPath) { File.Copy(car.ImagePath, imgPath, true); }
+                if (car.ImagePath != imgPath) 
+                {
+                    if (!Directory.Exists(Path.Combine(Environment.CurrentDirectory, carToEdit.ImagePath)))
+                    {
+                        Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, carToEdit.ImagePath));
+                    }
+                    File.Copy(car.ImagePath, imgPath, true); 
+                }
                 
             }
             dbRepository.Save();

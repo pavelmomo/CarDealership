@@ -99,9 +99,6 @@ namespace CarDealership.ViewModels
             set { _selectedSortingParameterIndex = value; EnterSortingParams(); }
         }
 
-
-       
-        
         public CarShowcaseViewModel(ICarService carService, IDealershipService dealershipService, IModelService modelService,
                                     IEnumService enumService)
         {
