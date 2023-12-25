@@ -187,8 +187,9 @@
         Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
                             <UniformGrid Columns="2">
                                 <Label Margin="7" VerticalAlignment="Center">Дата рождения (ДД.ММ.ГГГГ):</Label>
-                                <TextBox  HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center"
-                  Text="{Binding SelectedDeal.CustomerDateOfBirth}"></TextBox>
+                                <DatePicker Language="RU" SelectedDate="{Binding SelectedDeal.CustomerDateOfBirth}"></DatePicker>
+                                <!--<TextBox  HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center"
+                  Text="{Binding SelectedDeal.CustomerDateOfBirth}"></TextBox>-->
                             </UniformGrid>
                         </Border>
                         <Border BorderBrush="#FF2196F3" BorderThickness="5 2 5 2" CornerRadius="10" Padding="0 0 10 0"  Margin="3"

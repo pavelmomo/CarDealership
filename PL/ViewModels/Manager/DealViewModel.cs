@@ -150,7 +150,6 @@ namespace CarDealership.ViewModels.Manager
 
         #endregion
 
-        private DateTime buf = new DateTime();
         public ObservableCollection<DealShortDTO> Deals { get; set; }
         public ObservableCollection<AccessoryDTO> Products { get; set; }
         public DealDTO SelectedDeal { get => _selectedDeal; set { _selectedDeal = value; OnPropertyChanged(); } }
@@ -241,25 +240,16 @@ namespace CarDealership.ViewModels.Manager
             try
             {
                 if (SelectedCarId == 0 || SelectedDeal.CustomerTelephone <= 0 || string.IsNullOrWhiteSpace(SelectedDeal.CustomerPlaceOfLiving) 
-                || string.IsNullOrWhiteSpace(SelectedDeal.CustomerPassport) || string.IsNullOrWhiteSpace(SelectedDeal.CustomerFIO) || string.IsNullOrWhiteSpace(SelectedDeal.CustomerDateOfBirth) 
-                || SelectedDeal.CustomerDateOfBirth.Length != 10 )
+                || string.IsNullOrWhiteSpace(SelectedDeal.CustomerPassport) || string.IsNullOrWhiteSpace(SelectedDeal.CustomerFIO) )
                 {
                 
                     return false;
-                }
-            
-                if (!(SelectedDeal.CustomerDateOfBirth[2] == '.' && SelectedDeal.CustomerDateOfBirth[5] == '.')
-                || !DateTime.TryParse(SelectedDeal.CustomerDateOfBirth, out buf))
-                {
-                    return false;
-                }
+                } 
             }
             catch
             {
                 return false;
             }
-
-            
 
             return true;
         }
@@ -267,6 +257,7 @@ namespace CarDealership.ViewModels.Manager
         private void OpenCreateDialog(object e)
         {
             SelectedDeal = new DealDTO();
+            SelectedDeal.CustomerDateOfBirth = DateTime.Parse("01.01.2000");   
             accessories = accessories.Select(a => { a.IsSelected = false; return a; }).ToList();
             SelectedDeal.AccessoriesFromCart = accessories;
             SelectedDeal.Accessories = new List<int>();

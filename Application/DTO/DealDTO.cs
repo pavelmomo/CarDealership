@@ -15,7 +15,7 @@ namespace Application.DTO
         private long _carPrice;
         private string _customerFIO;
         private string _customerPassport;
-        private string _customerDateOfBirth;
+        private DateTime _customerDateOfBirth;
         private string _customerPlaceOfLiving;
         private long _customerTelephone;
         private long _totalPrice;
@@ -32,7 +32,7 @@ namespace Application.DTO
         public string AgentFIO { get; set; }
         public string CustomerFIO { get => _customerFIO; set { _customerFIO = value; OnPropertyChanged(); } }
         public string CustomerPassport { get => _customerPassport; set { _customerPassport = value; OnPropertyChanged(); } }
-        public string CustomerDateOfBirth { get => _customerDateOfBirth; set { _customerDateOfBirth = value; OnPropertyChanged(); } }
+        public DateTime CustomerDateOfBirth { get => _customerDateOfBirth; set { _customerDateOfBirth = value; OnPropertyChanged(); } }
         public string CustomerPlaceOfLiving { get => _customerPlaceOfLiving; set { _customerPlaceOfLiving = value; OnPropertyChanged(); } }
         public long CustomerTelephone { get => _customerTelephone; set { _customerTelephone = value; OnPropertyChanged(); } }
         public long TotalPrice { get => _totalPrice; set { _totalPrice = value; OnPropertyChanged(); } }
@@ -47,7 +47,7 @@ namespace Application.DTO
             AgentFIO = deal.Agent.Fio;
             CustomerFIO = deal.CustomerFIO;
             CustomerPassport = deal.CustomerPassport;
-            CustomerDateOfBirth = deal.CustomerDateOfBirth;
+            DateTime.TryParse(deal.CustomerDateOfBirth,out _customerDateOfBirth);
             CustomerPlaceOfLiving = deal.CustomerPlaceOfLiving;
             CustomerTelephone = deal.CustomerTelephone;
             TotalPrice = deal.TotalPrice;

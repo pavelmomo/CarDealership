@@ -31,7 +31,7 @@ namespace BLL.Services
                 TotalPrice = dealDTO.TotalPrice,
                 CustomerFIO = dealDTO.CustomerFIO,
                 CustomerPassport = dealDTO.CustomerPassport,
-                CustomerDateOfBirth = dealDTO.CustomerDateOfBirth,
+                CustomerDateOfBirth = dealDTO.CustomerDateOfBirth.ToShortDateString(),
                 CustomerPlaceOfLiving = dealDTO.CustomerPlaceOfLiving,
                 CustomerTelephone = dealDTO.CustomerTelephone
 
