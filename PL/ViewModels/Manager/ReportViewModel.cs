@@ -104,7 +104,7 @@ namespace CarDealership.ViewModels
                 valuesBuffer.Add(dealershipService.GetCarsStatisticByPrice(0, 300000, limitDate));
                 valuesBuffer.Add(dealershipService.GetCarsStatisticByPrice(300001, 1000000, limitDate));
                 valuesBuffer.Add(dealershipService.GetCarsStatisticByPrice(1000001, 2000000, limitDate));
-                valuesBuffer.Add(dealershipService.GetCarsStatisticByPrice(1000001, -1, limitDate));
+                valuesBuffer.Add(dealershipService.GetCarsStatisticByPrice(2000001, -1, limitDate));
                 var series = SeriesCollection.AsEnumerable().ToArray();
 
                 for (int i = 0; i < series.Length; i++)

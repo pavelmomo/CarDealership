@@ -27,7 +27,7 @@ namespace Application.DTO
         public long CarId { get => _carId; set { _carId = value; OnPropertyChanged(); } }
         public int AgentId { get; set; }
         public string CarName { get => _carName; set { _carName = value; OnPropertyChanged(); } }
-        public string CarNameWithVIN { get => _carNameWithVIN; set { _carNameWithVIN = value; OnPropertyChanged(); } }
+        public string CarNameWithRegNumber { get => _carNameWithVIN; set { _carNameWithVIN = value; OnPropertyChanged(); } }
         public long CarPrice { get => _carPrice; set { _carPrice = value; OnPropertyChanged(); } }
         public string AgentFIO { get; set; }
         public string CustomerFIO { get => _customerFIO; set { _customerFIO = value; OnPropertyChanged(); } }
@@ -52,7 +52,7 @@ namespace Application.DTO
             CustomerTelephone = deal.CustomerTelephone;
             TotalPrice = deal.TotalPrice;
             CarName = deal.Car.Model.Brand.Name + " " + deal.Car.Model.Name;
-            CarNameWithVIN = CarName + " " + deal.Car.Vin;
+            CarNameWithRegNumber = CarName + " " + deal.Car.RegistrationNumber;
             CarPrice = deal.Car.Price;
         }
         public DealDTO()

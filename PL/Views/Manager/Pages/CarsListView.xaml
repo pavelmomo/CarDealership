@@ -38,9 +38,9 @@
             <DataGrid.Columns >
 
                 <DataGridTextColumn Width="*" Header="Дата публикации" Binding="{ Binding DateOfPublish, Converter={StaticResource dateConverter}}" />
+                <DataGridTextColumn Width="*" Header="Рег. номер" Binding="{ Binding RegNumber}" />
                 <DataGridTextColumn Width="*" Header="Марка и модель" Binding="{ Binding Name}" />
                 <DataGridTextColumn Width="*" Header="Год выпуска" Binding="{ Binding YearOfRelease}" />
-                <DataGridTextColumn Width="*" Header="VIN" Binding="{ Binding VIN}" />
                 <DataGridTextColumn Width="*" Header="Цена, ₽" Binding="{ Binding Price}" />
             </DataGrid.Columns>
             <i:Interaction.Triggers>
@@ -103,11 +103,6 @@
                                             <Label Content="{Binding Name}"></Label>
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="SelectionChanged">
-                                            <i:InvokeCommandAction Command="{Binding UpdateModelsCommand}"></i:InvokeCommandAction>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
                                 </ComboBox>
                             </UniformGrid>
                         </Border>
@@ -302,7 +297,7 @@
                         <Border BorderBrush="#FF2196F3" BorderThickness="5 2 5 2" CornerRadius="10" Padding="0 0 10 0"  Margin="3"
                 Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                             <UniformGrid Columns="2">
-                                <Label Margin="7" VerticalAlignment="Center">Регистрационный номер:</Label>
+                                <Label Margin="7" VerticalAlignment="Center">Рег. номер:</Label>
                                 <TextBox  HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center"
                           Text="{Binding SelectedCar.RegistrationNumber}"></TextBox>
                             </UniformGrid>

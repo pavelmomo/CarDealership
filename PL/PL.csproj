@@ -335,6 +335,8 @@
     <Resource Include="Images\Dealership.jpg" />
     <Resource Include="Images\Dealership.jpeg" />
     <Resource Include="Images\appIcon.ico" />
+    <Resource Include="Images\AuthBack2.png" />
+    <Resource Include="Images\AuthBack3.png" />
     <Content Include="Themes\Fonts\ofont.ru_Cornerita.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

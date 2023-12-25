@@ -23,6 +23,7 @@ namespace Application.DTO
             Price = car.Price;
             DateOfPublish = car.DateOfPublish;
             VIN = car.Vin;
+            RegNumber = car.RegistrationNumber;
             BodyNumber = car.BodyNumber;
             YearOfRelease = car.YearOfRelease;
             ShortSpecs = string.Format("Год выпуска {7},\nДвигатель {0} {1} л.,{2} л.с, {3} КПП\nКузов {4},\nПробег {5} км.\nОпубликовано {6}",
@@ -35,6 +36,7 @@ namespace Application.DTO
         public string Name { get; set; }
         public long Price { get; set; }
         public string VIN { get; set; }
+        public string RegNumber { get; set; }
         public DateTime DateOfPublish { get; set; }
         public string ShortSpecs { get; set; }
         public int YearOfRelease { get; set; }

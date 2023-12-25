@@ -26,7 +26,7 @@
         <Label  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" 
         FontWeight="Bold" >Совершённые сделки</Label>
         <Button  Grid.Row="0"  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Style="{StaticResource MaterialDesignFlatButton}"
-            Margin="5" Content="Создать сделку"  Command="{Binding OpenCreateDialogCommand}">
+            Margin="5" Content="Оформить сделку"  Command="{Binding OpenCreateDialogCommand}">
 
         </Button>
         <Border Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="#FF9EB9EB"/>
@@ -37,7 +37,7 @@
                 <DataGridTextColumn Width="*" Header="Дата" Binding="{Binding Date, Converter={StaticResource dateConverter}}"/>
                 <DataGridTextColumn Width="*" Header="Автомобиль" Binding="{Binding CarName}"/>
                 <DataGridTextColumn Width="*" Header="Покупатель" Binding="{Binding CustomerFIO}"/>
-                <DataGridTextColumn Width="*" Header="Общая стоимость" Binding="{Binding TotalPrice}"/>
+                <DataGridTextColumn Width="*" Header="Общая стоимость, ₽" Binding="{Binding TotalPrice}"/>
             </DataGrid.Columns>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
@@ -113,12 +113,12 @@
                         </Border>
                         <Border BorderBrush="#FF2196F3" BorderThickness="5 2 5 2" CornerRadius="10" Padding="0 0 10 0"  Margin="3" Grid.Row="2">
                             <UniformGrid Columns="2">
-                                <Label Margin="7" VerticalAlignment="Center">VIN:</Label>
+                                <Label Margin="7" VerticalAlignment="Center">Рег. номер:</Label>
                                 <ComboBox  HorizontalAlignment="Stretch" ItemsSource="{Binding Cars}" 
                                     SelectedValue="{Binding SelectedCarId}" SelectedValuePath="Id">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding VIN}"></Label>
+                                            <Label Content="{Binding RegNumber}"></Label>
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
@@ -262,7 +262,7 @@
        Content="{Binding SelectedDeal.Date,Converter={StaticResource dateConverter}}"></Label>
                         <StackPanel Margin="30 5 5 5" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
                             <Label VerticalAlignment="Center" FontSize="15">Автомобиль:</Label>
-                            <Label Margin="10 5 0 5" VerticalAlignment="Center" FontSize="15" Content="{Binding SelectedDeal.CarNameWithVIN}"></Label>
+                            <Label Margin="10 5 0 5" VerticalAlignment="Center" FontSize="15" Content="{Binding SelectedDeal.CarNameWithRegNumber}"></Label>
                         </StackPanel>
                         <StackPanel Margin="30 5 5 5" Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center">
                             <Label  VerticalAlignment="Center" FontSize="15">ФИО покупателя:</Label>
@@ -277,7 +277,7 @@
                     <DataGrid Margin="20" Grid.Row="3" ItemsSource="{Binding Products}" AutoGenerateColumns="False" Grid.ColumnSpan="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Товар" Width="*" Binding="{Binding Name}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Стоимость" Width="*" Binding="{Binding Price}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Стоимость, ₽" Width="*" Binding="{Binding Price}"></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
 

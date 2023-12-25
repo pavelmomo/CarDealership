@@ -184,8 +184,8 @@
                                   HorizontalAlignment="Left" FontSize="14"></ListView>
                         <Label Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7" HorizontalAlignment="Center" 
                                VerticalAlignment="Center" FontSize="18" Margin="0">Описание</Label>
-                        <Label Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="8" HorizontalAlignment="Left" Margin="20" 
-                               Content="{Binding SelectedCar.Description}"></Label>
+                        <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="8" HorizontalAlignment="Left" Margin="20" 
+                               Text="{Binding SelectedCar.Description}" TextWrapping="Wrap"></TextBlock>
                         <Label HorizontalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="9" FontSize="18">Контакты для связи</Label>
                         
 

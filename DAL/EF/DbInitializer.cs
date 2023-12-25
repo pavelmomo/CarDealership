@@ -107,7 +107,7 @@ namespace DAL.EF
                         DriveType = Domain.Enums.DriveType.rear, TransmissionType = Domain.Enums.TransmissionType.mechanic, BodyType = Domain.Enums.BodyType.sedan,
                         EngineType = Domain.Enums.EngineType.gasoline, Model = models[11]},
 
-                 new Car { Status=true, YearOfRelease=1996, NumberOfOwners=6, Mileage= 248000, EngineSize= 2.8f,EnginePower=197, Color="чёрный",
+                 new Car { Status=true, YearOfRelease=2012, NumberOfOwners=6, Mileage= 248000, EngineSize= 2.8f,EnginePower=197, Color="чёрный",
                         Description="Продаётся автомобиль.",Vin="KRG899113459876",DateOfPublish=DateTime.Now,Price=560000,
                         RegistrationNumber="Е779КН178", BodyNumber="-",EngineNumber="2807-83811",Pts="1387345338",Sts="87362251", ImagePath="Images\\CarsForSale\\2",
                         DriveType = Domain.Enums.DriveType.rear, TransmissionType = Domain.Enums.TransmissionType.automatic, BodyType = Domain.Enums.BodyType.sedan,

@@ -2,6 +2,7 @@
 using Application.Interfaces.Service;
 using CarDealership.Util;
 using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -149,7 +150,7 @@ namespace CarDealership.ViewModels.Manager
 
         #endregion
 
-
+        private DateTime buf = new DateTime();
         public ObservableCollection<DealShortDTO> Deals { get; set; }
         public ObservableCollection<AccessoryDTO> Products { get; set; }
         public DealDTO SelectedDeal { get => _selectedDeal; set { _selectedDeal = value; OnPropertyChanged(); } }
@@ -237,12 +238,29 @@ namespace CarDealership.ViewModels.Manager
         }
         private bool CheckForm(object e)
         {
-            if (SelectedCarId == 0 || SelectedDeal.CustomerTelephone <= 0 || string.IsNullOrWhiteSpace(SelectedDeal.CustomerPlaceOfLiving) 
+            try
+            {
+                if (SelectedCarId == 0 || SelectedDeal.CustomerTelephone <= 0 || string.IsNullOrWhiteSpace(SelectedDeal.CustomerPlaceOfLiving) 
                 || string.IsNullOrWhiteSpace(SelectedDeal.CustomerPassport) || string.IsNullOrWhiteSpace(SelectedDeal.CustomerFIO) || string.IsNullOrWhiteSpace(SelectedDeal.CustomerDateOfBirth) 
-                || SelectedDeal.CustomerDateOfBirth.Length != 10)
+                || SelectedDeal.CustomerDateOfBirth.Length != 10 )
+                {
+                
+                    return false;
+                }
+            
+                if (!(SelectedDeal.CustomerDateOfBirth[2] == '.' && SelectedDeal.CustomerDateOfBirth[5] == '.')
+                || !DateTime.TryParse(SelectedDeal.CustomerDateOfBirth, out buf))
+                {
+                    return false;
+                }
+            }
+            catch
             {
                 return false;
             }
+
+            
+
             return true;
         }
 
@@ -264,7 +282,7 @@ namespace CarDealership.ViewModels.Manager
             {
                 SelectedDeal = dealService.GetOneDeal(id);
                 Products.Clear();
-                Products.Add(new AccessoryDTO { Name = SelectedDeal.CarNameWithVIN, Price = (int)SelectedDeal.CarPrice });
+                Products.Add(new AccessoryDTO { Name = SelectedDeal.CarNameWithRegNumber, Price = (int)SelectedDeal.CarPrice });
                 if (SelectedDeal.AccessoriesFromCart != null) { Products.AddRange(SelectedDeal.AccessoriesFromCart); }
                 IsInfoDialogOpen = true;
             }
