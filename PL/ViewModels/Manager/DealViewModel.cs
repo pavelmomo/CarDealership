@@ -237,17 +237,13 @@ namespace CarDealership.ViewModels.Manager
         }
         private bool CheckForm(object e)
         {
-            try
+            if(SelectedDeal == null) { return false; }
+
+            if (SelectedCarId == 0 || SelectedDeal.CustomerTelephone <= 0 || string.IsNullOrWhiteSpace(SelectedDeal.CustomerPlaceOfLiving)
+                || string.IsNullOrWhiteSpace(SelectedDeal.CustomerPassport) || string.IsNullOrWhiteSpace(SelectedDeal.CustomerFIO)
+                || SelectedDeal.CustomerTelephone / 10000000000 != 7)
             {
-                if (SelectedCarId == 0 || SelectedDeal.CustomerTelephone <= 0 || string.IsNullOrWhiteSpace(SelectedDeal.CustomerPlaceOfLiving) 
-                || string.IsNullOrWhiteSpace(SelectedDeal.CustomerPassport) || string.IsNullOrWhiteSpace(SelectedDeal.CustomerFIO) )
-                {
-                
-                    return false;
-                } 
-            }
-            catch
-            {
+
                 return false;
             }
 

@@ -300,18 +300,12 @@ namespace CarDealership.ViewModels
         bool CheckDialogForm(object obj)
         {
             if (SelectedCar == null) { return false; }
-            try
-            {
-                if (string.IsNullOrWhiteSpace(SelectedCar.Pts) || string.IsNullOrWhiteSpace(SelectedCar.Sts) || string.IsNullOrWhiteSpace(SelectedCar.RegistrationNumber) || string.IsNullOrWhiteSpace(SelectedCar.EngineNumber)
+
+            if (string.IsNullOrWhiteSpace(SelectedCar.Pts) || string.IsNullOrWhiteSpace(SelectedCar.Sts) || string.IsNullOrWhiteSpace(SelectedCar.RegistrationNumber) || string.IsNullOrWhiteSpace(SelectedCar.EngineNumber)
                 || string.IsNullOrWhiteSpace(SelectedCar.ImagePath) || string.IsNullOrWhiteSpace(SelectedCar.Vin)
                 || string.IsNullOrWhiteSpace(SelectedCar.Color) || SelectedCar.NumberOfOwners <= 0 || SelectedCar.Price <= 0 || SelectedCar.YearOfRelease < 1800 ||
                    SelectedCar.EnginePower <= 0 || SelectedCar.EngineSize <= 0 || SelectedCar.Mileage <= 0 || SelectedModelId == 0
                 || string.IsNullOrWhiteSpace(SelectedCar.BodyNumber))
-                {
-                    return false;
-                }
-            }
-            catch
             {
                 return false;
             }

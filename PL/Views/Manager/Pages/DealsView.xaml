@@ -203,7 +203,7 @@
                         <Border BorderBrush="#FF2196F3" BorderThickness="5 2 5 2" CornerRadius="10" Padding="0 0 10 0"  Margin="3"
         Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
                             <UniformGrid Columns="2">
-                                <Label Margin="7" VerticalAlignment="Center">Номер телефона:</Label>
+                                <Label Margin="7" VerticalAlignment="Center">Номер телефона: (нач. с 7)</Label>
                                 <TextBox  HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center"
                  Text="{Binding SelectedDeal.CustomerTelephone,Converter={StaticResource zeroConverter}}"></TextBox>
                             </UniformGrid>
@@ -211,7 +211,7 @@
                         
                         
                         <Button VerticalAlignment="Center" Margin="5" FontSize="16" MinHeight="50" Content="Оформить" IsDefault="True"
-    Grid.Row="6" Grid.Column="1" Command="{Binding CreateDealCommand}" Cursor="">
+    Grid.Row="6" Grid.Column="1" Command="{Binding CreateDealCommand}" >
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"/>

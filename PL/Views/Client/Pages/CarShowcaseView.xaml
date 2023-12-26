@@ -75,7 +75,7 @@
                                VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
                         <StackPanel Grid.Column="1">
                             <Label ForceCursor="True" HorizontalAlignment="Right" x:Name="AdvertismentName" Content="{Binding Name}"  FontSize="15"></Label>
-                            <Label HorizontalAlignment="Right" x:Name="ShortDescription" Content="{Binding ShortSpecs}" FontSize="13" Margin="7 0 0 0"></Label>
+                            <Label HorizontalAlignment="Left" x:Name="ShortDescription" Content="{Binding ShortSpecs}" FontSize="13" Margin="7 0 0 0"></Label>
                             
                         </StackPanel>
                         
